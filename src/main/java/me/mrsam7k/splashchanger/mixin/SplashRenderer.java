@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +27,7 @@ public class SplashRenderer {
     private Map<SplashMode, String> splashStrings;
 
     @Mutable @Shadow @Final
-    private String splash;
+    private Component splash;
 
     @Inject(method = "render", at = @At("HEAD"))
     public void render(GuiGraphics guiGraphics, int i, Font font, float f, CallbackInfo ci) {
@@ -52,7 +54,7 @@ public class SplashRenderer {
         if (SplashChanger.USER != null)
             sb.append(splashStrings.get(Config.splashMode).replace("&", "§").replace("%name", SplashChanger.USER.getName()));
 
-        this.splash = sb.toString();
+        this.splash = Component.literal(sb.toString()).setStyle(Style.EMPTY.withColor(-256));
     }
 
     private void initSplashStrings() {
@@ -60,7 +62,7 @@ public class SplashRenderer {
 
         splashStrings.put(SplashMode.SINGLE_SPLASH, Config.customSplash);
         splashStrings.put(SplashMode.RANDOM_SPLASH, Config.customSplashes.get(random.nextInt(Config.customSplashes.size())));
-        splashStrings.put(SplashMode.ORIGINAL, this.splash);
+        splashStrings.put(SplashMode.ORIGINAL, this.splash.getString());
         splashStrings.put(SplashMode.ORIGINAL_1_0, randomSplashFromFile("presets/1.0.txt"));
         splashStrings.put(SplashMode.ORIGINAL_1_8, randomSplashFromFile("presets/1.8.txt"));
         splashStrings.put(SplashMode.NONE, "");
