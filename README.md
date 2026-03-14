@@ -3,7 +3,7 @@ Adds an option to change Splash Text in Title Screen using awesome in-game CONFI
 
 ## Download SplashChanger from [Modrinth](https://modrinth.com/mod/splash-changer/versions) today!
 
-<img width="1582" alt="splash-changer-preview" src="https://github.com/user-attachments/assets/c5cdf6e4-cd01-4780-8806-c8733da6513e">
+<img width="1582" height="959" alt="SPLASH_CHANGER" src="https://github.com/user-attachments/assets/f108f13a-334f-480c-bef9-06b8b7066997" />
 
 ## Upgrading
 - Change the values in [gradle.properties](gradle.properties)
