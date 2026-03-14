@@ -1,8 +1,12 @@
 package me.mrsam7k.splashchanger.mixin;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
 import me.mrsam7k.splashchanger.SplashChanger;
 import me.mrsam7k.splashchanger.config.Config;
 import me.mrsam7k.splashchanger.config.Config.SplashMode;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Final;
@@ -13,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.ComponentSerialization;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -36,14 +40,18 @@ public class SplashRenderer {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("§").append(Config.color.getCode());
+        if(Config.color != Config.Colors.CUSTOM_GRADIENT)
+            sb.append(String.format("<%s>",
+                Config.color == Config.Colors.CUSTOM ? Config.customColor : Config.color.name().toLowerCase()));
+        else
+            sb.append(String.format("<gradient:%s:%s>", Config.gradientColor1, Config.gradientColor2));
 
         String[] formats = {
-                Config.OBFUSCATED ? "§k" : "",
-                Config.BOLD ? "§l" : "",
-                Config.STRIKETHROUGH ? "§m" : "",
-                Config.UNDERLINE ? "§n" : "",
-                Config.ITALIC ? "§o" : ""
+                Config.OBFUSCATED ? "<obfuscated>" : "",
+                Config.BOLD ? "<bold>" : "",
+                Config.STRIKETHROUGH ? "<strikethrough>" : "",
+                Config.UNDERLINE ? "<underlined>" : "",
+                Config.ITALIC ? "<italic>" : ""
         };
 
         for (String format : formats) {
@@ -51,10 +59,17 @@ public class SplashRenderer {
                 sb.append(format);
         }
 
-        if (SplashChanger.USER != null)
-            sb.append(splashStrings.get(Config.splashMode).replace("&", "§").replace("%name", SplashChanger.USER.getName()));
+        sb.append(splashStrings.get(Config.splashMode)
+                .replace("%name", SplashChanger.USER == null ? "Player" : SplashChanger.USER.getName()));
 
-        this.splash = Component.literal(sb.toString()).setStyle(Style.EMPTY.withColor(-256));
+        net.kyori.adventure.text.Component adventureComponent = SplashChanger.miniMessage.deserialize(sb.toString());
+
+        String json = GsonComponentSerializer.gson().serialize(adventureComponent);
+        JsonElement element = JsonParser.parseString(json);
+
+        this.splash = ComponentSerialization.CODEC
+                .parse(JsonOps.INSTANCE, element)
+                .getOrThrow();
     }
 
     private void initSplashStrings() {

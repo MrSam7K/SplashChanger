@@ -27,10 +27,13 @@ dependencies {
     modApi("maven.modrinth:midnightlib:${project.midnightlib_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
     include("maven.modrinth:midnightlib:${project.midnightlib_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    }
+
+    modImplementation "net.kyori:adventure-platform-fabric:${adventure_platform_fabric_version}"
+}
 
 processResources {
     inputs.property "version", project.version

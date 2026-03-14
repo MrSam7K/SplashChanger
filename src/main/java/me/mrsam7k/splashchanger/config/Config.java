@@ -16,35 +16,42 @@ public class Config extends MidnightConfig {
         SINGLE_SPLASH, RANDOM_SPLASH, ORIGINAL, ORIGINAL_1_0, ORIGINAL_1_8, NONE
     }
 
+    @Condition(requiredOption = "splashMode", requiredValue = "SINGLE_SPLASH")
     @Entry
     public static String customSplash = "Singular Splash!";
+
+    @Condition(requiredOption = "splashMode", requiredValue = "RANDOM_SPLASH")
     @Entry
-    public static List<String> customSplashes = Lists.newArrayList("%name, that's you... I think",
-            "Change this in options!", "&cC&6o&el&ao&br&9e&5d&r &a&lSPLASH");
+    public static List<String> customSplashes = Lists.newArrayList("<white><head:%name></white> %name, that's you... I think",
+            "Change this in options!", "<rainbow>Colored <bold>SPLASH", "<gradient:#5e4fa2:#f79459:red>Very cool gradient indeed</gradient>");
 
     @Comment
     public static Comment spacer1;
-    @Comment(centered = true)
+    @Comment(centered = true,
+            url = "https://docs.papermc.io/adventure/minimessage/format/")
     public static Comment customizationComment;
 
     @Entry
     public static Colors color = Colors.YELLOW;
 
     public enum Colors {
-        BLACK("0"), DARK_BLUE("1"), DARK_GREEN("2"), DARK_AQUA("3"), DARK_RED("4"),
-        DARK_PURPLE("5"), GOLD("6"), GRAY("7"), DARK_GRAY("8"), BLUE("9"),
-        GREEN("a"), AQUA("b"), RED("c"), LIGHT_PURPLE("d"), YELLOW("e"), WHITE("f");
-
-        private final String code;
-
-        Colors(String code) {
-            this.code = code;
-        }
-
-        public String getCode() {
-            return code;
-        }
+        BLACK(), DARK_BLUE(), DARK_GREEN(), DARK_AQUA(), DARK_RED(),
+        DARK_PURPLE(), GOLD(), GRAY(), DARK_GRAY(), BLUE(),
+        GREEN(), AQUA(), RED(), LIGHT_PURPLE(), YELLOW(), WHITE(),
+        CUSTOM(), CUSTOM_GRADIENT();
     }
+
+    @Condition(requiredOption = "color", requiredValue = "CUSTOM")
+    @Entry
+    public static String customColor = "#ffaa88";
+
+    @Condition(requiredOption = "color", requiredValue = "CUSTOM_GRADIENT")
+    @Entry
+    public static String gradientColor1 = "#ffaa88";
+
+    @Condition(requiredOption = "color", requiredValue = "CUSTOM_GRADIENT")
+    @Entry
+    public static String gradientColor2 = "#55ff00";
 
     @Entry
     public static boolean OBFUSCATED = false;
