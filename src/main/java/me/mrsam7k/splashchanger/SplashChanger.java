@@ -5,9 +5,6 @@ import me.mrsam7k.splashchanger.config.Config;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SplashChanger implements ModInitializer {
 
     public static String MOD_ID = "splashchanger";
@@ -18,6 +15,5 @@ public class SplashChanger implements ModInitializer {
     public void onInitialize() {
         MidnightConfig.init(MOD_ID, Config.class);
     }
-
 
 }
