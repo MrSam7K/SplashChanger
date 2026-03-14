@@ -12,8 +12,6 @@ public class SplashChanger implements ModInitializer {
 
     public static String MOD_ID = "splashchanger";
 
-    public static int RANDOM_SPLASH_INT = 0;
-    public static List<String> CACHED_SPLASHES = new ArrayList<>();
     public static User USER = null;
 
     @Override

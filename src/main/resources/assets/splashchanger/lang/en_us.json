@@ -30,10 +30,12 @@
   "splashchanger.midnightconfig.enum.Colors.WHITE": "§fWhite (&f)",
 
 
-  "splashchanger.midnightconfig.enum.SplashModes.SINGLE_SPLASH": "Single Splash",
-  "splashchanger.midnightconfig.enum.SplashModes.RANDOM_SPLASH": "Random Splash From List",
-  "splashchanger.midnightconfig.enum.SplashModes.ORIGINAL": "Minecraft's Splashes",
-  "splashchanger.midnightconfig.enum.SplashModes.NONE": "None",
+  "splashchanger.midnightconfig.enum.SplashMode.SINGLE_SPLASH": "Single Splash",
+  "splashchanger.midnightconfig.enum.SplashMode.RANDOM_SPLASH": "Random Splash From List",
+  "splashchanger.midnightconfig.enum.SplashMode.ORIGINAL": "Vanilla Splashes",
+  "splashchanger.midnightconfig.enum.SplashMode.ORIGINAL_1_0": "Minecraft 1.0",
+  "splashchanger.midnightconfig.enum.SplashMode.ORIGINAL_1_8": "Minecraft 1.8",
+  "splashchanger.midnightconfig.enum.SplashMode.NONE": "None",
 
   "splashchanger.midnightconfig.disableButton": "Disable SplashChanger's Button in Options Screen",
   "splashchanger.midnightconfig.disableButton.tooltip": "§cWarning: enabling this option will not let you access SplashChanger's config unless you are using Mod Menu!",
