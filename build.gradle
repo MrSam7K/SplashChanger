@@ -32,7 +32,9 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    modImplementation "net.kyori:adventure-platform-fabric:${adventure_platform_fabric_version}"
+    modImplementation include("net.kyori:adventure-platform-fabric:${adventure_platform_fabric_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 processResources {
