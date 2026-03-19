@@ -43,6 +43,9 @@
   "splashchanger.midnightconfig.disableButton": "Disable SplashChanger's Button in Options Screen",
   "splashchanger.midnightconfig.disableButton.tooltip": "You can also open the config by clicking on the splash in the title screen!",
 
+  "splashchanger.midnightconfig.disableTitleClick": "Disable Title Screen click",
+  "splashchanger.midnightconfig.disableTitleClick.tooltip": "You can also open the config by clicking on the button in the options screen!",
+
   "splashchanger.midnightconfig.customizationComment": "You can use the color tags (e.g. §2<dark_green>§r) in the texts above for even more customization!\nCheck out the official MiniMessage documentation to unlock the mod's full potential (click)",
 
   "splashchanger.open_config.tooltip": "Click to customize me!"

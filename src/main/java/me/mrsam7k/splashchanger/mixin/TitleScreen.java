@@ -36,7 +36,7 @@ public abstract class TitleScreen extends Screen {
 
     @Inject(method = "mouseClicked", at = @At("HEAD"))
     protected void onSplashClick(MouseButtonEvent mouseButtonEvent, boolean bl, CallbackInfoReturnable<Boolean> cir) {
-        if(mouseButtonEvent.button() != 0 || this.splash == null) return;
+        if(Config.disableTitleClick || mouseButtonEvent.button() != 0 || this.splash == null) return;
 
         double mouseX = mouseButtonEvent.x();
         double mouseY = mouseButtonEvent.y();
@@ -50,7 +50,7 @@ public abstract class TitleScreen extends Screen {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
-        if (isHoveringOverTitle(mouseX, mouseY)) {
+        if (!Config.disableTitleClick && isHoveringOverTitle(mouseX, mouseY)) {
             guiGraphics.renderTooltip(
                     this.font,
                     List.of(ClientTooltipComponent.create(Component.translatable("splashchanger.open_config.tooltip").getVisualOrderText())),

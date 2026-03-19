@@ -70,6 +70,9 @@ public class Config extends MidnightConfig {
     @Entry
     public static boolean disableButton = false;
 
+    @Entry
+    public static boolean disableTitleClick = false;
+
     public static Screen getMidnightScreen(Screen parent) {
         return MidnightConfig.getScreen(parent, SplashChanger.MOD_ID);
     }
