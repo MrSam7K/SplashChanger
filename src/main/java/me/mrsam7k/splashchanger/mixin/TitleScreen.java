@@ -2,11 +2,9 @@ package me.mrsam7k.splashchanger.mixin;
 
 import me.mrsam7k.splashchanger.config.Config;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SplashRenderer;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -19,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.List;
 
 @Mixin(net.minecraft.client.gui.screens.TitleScreen.class)
 public abstract class TitleScreen extends Screen {
@@ -48,16 +44,13 @@ public abstract class TitleScreen extends Screen {
         }
     }
 
-    @Inject(method = "render", at = @At("TAIL"))
-    private void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At("TAIL"))
+    private void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (!Config.disableTitleClick && isHoveringOverTitle(mouseX, mouseY)) {
-            guiGraphics.renderTooltip(
-                    this.font,
-                    List.of(ClientTooltipComponent.create(Component.translatable("splashchanger.open_config.tooltip").getVisualOrderText())),
+            graphics.setTooltipForNextFrame(
+                    Component.translatable("splashchanger.open_config.tooltip"),
                     mouseX,
-                    mouseY,
-                    DefaultTooltipPositioner.INSTANCE,
-                    null
+                    mouseY
             );
         }
     }

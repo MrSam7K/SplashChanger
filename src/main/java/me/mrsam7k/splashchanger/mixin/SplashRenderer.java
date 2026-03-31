@@ -8,17 +8,13 @@ import me.mrsam7k.splashchanger.config.Config;
 import me.mrsam7k.splashchanger.config.Config.SplashMode;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -30,11 +26,11 @@ public class SplashRenderer {
 
     private Map<SplashMode, String> splashStrings;
 
-    @Mutable @Shadow @Final
+    @Shadow @Mutable
     private Component splash;
 
-    @Inject(method = "render", at = @At("HEAD"))
-    public void render(GuiGraphics guiGraphics, int i, Font font, float f, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At("HEAD"))
+    public void extractRenderState(GuiGraphicsExtractor graphics, int screenWidth, Font font, float alpha, CallbackInfo ci) {
         if (splashStrings == null) {
             initSplashStrings();
         }
@@ -42,7 +38,7 @@ public class SplashRenderer {
         StringBuilder sb = new StringBuilder();
         if(Config.color != Config.Colors.CUSTOM_GRADIENT)
             sb.append(String.format("<%s>",
-                Config.color == Config.Colors.CUSTOM ? Config.customColor : Config.color.name().toLowerCase()));
+                    Config.color == Config.Colors.CUSTOM ? Config.customColor : Config.color.name().toLowerCase()));
         else
             sb.append(String.format("<gradient:%s:%s>", Config.gradientColor1, Config.gradientColor2));
 
