@@ -48,5 +48,6 @@
 
   "splashchanger.midnightconfig.customizationComment": "You can use the color tags (e.g. §2<dark_green>§r) in the texts above for even more customization!\nCheck out the official MiniMessage documentation to unlock the mod's full potential (click)",
 
-  "splashchanger.open_config.tooltip": "Click to customize me!"
+  "splashchanger.open_config.tooltip": "Click to customize me!",
+  "splashchanger.config_button": "Splash Changer"
 }
