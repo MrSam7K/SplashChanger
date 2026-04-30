@@ -39,7 +39,7 @@ public abstract class TitleScreen extends Screen {
 
         if (isHoveringOverTitle(mouseX, mouseY)) {
             // this should update the splash when user goes back after changing something in the config
-            this.minecraft.setScreen(Config.getMidnightScreen(new net.minecraft.client.gui.screens.TitleScreen()));
+            this.minecraft.gui.setScreen(Config.getMidnightScreen(new net.minecraft.client.gui.screens.TitleScreen()));
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         }
     }
